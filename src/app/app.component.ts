@@ -1,5 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component } from '@angular/core';
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import * as  Cloudinary from 'cloudinary-core';
+
 
 @Component({
   selector: 'app-root',
@@ -7,26 +9,25 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  @ViewChild('f') userForm: NgForm;
-  profile = {
-    prId: '',
-    prFirstName: '',
-    prLastName: '',
-    prEmail: '',
-    prPhone: ''
-  }
-  submitted = false;
 
-  onSubmit() {
-    this.submitted = true;
-    this.profile.prFirstName = this.userForm.value.firstname;
-    this.profile.prLastName = this.userForm.value.lastname;
-    this.profile.prEmail = this.userForm.value.email;
-    this.profile.prPhone = this.userForm.value.phone;
-    this.userForm.reset();
+  imageUrl: string;
+  pubId: string;
 
-    console.log("Your Name: " + this.profile.prFirstName + " " + this.profile.prLastName);
-    console.log("Your email: " + this.profile.prEmail);
-    console.log("Your phone: " + this.profile.prPhone);
+  upload(): void {
+    cloudinary.openUploadWidget({ cloud_name: 'deep-dive', upload_preset: 'lostpaws'},
+      function(error, result) {
+      /*this.imageUrl = result[0].url.toString();*/
+        console.log(result[0]);
+      console.log('secure URL: ' + result[0]['secure_url']);
+      console.log('public ID: ' + result[0]['public_id']);
+
+
+      /*this.pubId = result[0]['public_id'];
+        console.log("public ID: " + this.pubId);*/
+
+      /*this.imageUrl = result[0]['secure_url'];
+      console.log("this.imageUrl: " + this.imageUrl);*/
+    });
   }
+
 }

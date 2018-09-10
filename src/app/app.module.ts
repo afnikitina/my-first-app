@@ -7,6 +7,10 @@ import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import {HttpClientModule} from '@angular/common/http';
 
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import * as  Cloudinary from 'cloudinary-core';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +20,10 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CloudinaryModule.forRoot(Cloudinary,{
+      cloud_name: 'deep-dive',
+      upload_preset: 'lostpaws'})
   ],
   providers: [],
   bootstrap: [AppComponent]
